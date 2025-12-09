@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 import runpy, base64
@@ -5,6 +6,14 @@ import matplotlib.pyplot as plt
 import io
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or specify Netlify domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/simulate")
 def simulate(location: str, lpm: float, cfm: float):
